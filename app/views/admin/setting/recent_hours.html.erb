@@ -1,0 +1,33 @@
+<div class="main-content">
+  <div class="page-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <%= form_tag(admin_setting_path, method: :post, multipart: true) do %>
+          <div class="card-body">
+            <h4 class="card-title"><%= t('admin.setting.title') %></h4>
+            <div class="form-group row">
+              <label for="example-text-input" class="col-md-2 col-form-label"><%= t("admin.setting.recent_hours") %></label>
+              <div class="col-md-8">
+                <%= text_field_tag 'recent_hours', @dashboard_setting.recent_hours, class: 'form-control input-custom', placeholder: t('admin.setting.enter_recent_hours'), type: :number %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-2">
+                <button class="btn btn-primary" type="submit"><%= t('shared.add')%></button>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

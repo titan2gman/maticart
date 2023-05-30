@@ -1,0 +1,48 @@
+<% if params[:sold_nfts].eql?('true') %>
+  <% if params[:page_no].to_i > 1 %>
+    $('#load_more_sold_collection').append("<%= j render 'sold_out_collections', collections: @sold_collections, sold_text: true, trade_text: false %>");
+  <% else %>
+    $('#load_more_sold_collection').html("<%= j render 'sold_out_collections', collections: @sold_collections, sold_text: true, trade_text: false %>");
+  <% end %>
+  <% if @sold_collections.next_page.present? %>
+    $("#load_more_link_sold").attr("href", "<%= dashboard_path(page_no: @sold_collections.next_page, sold_nfts: true) %>");
+  <% else %>
+    $(".load_more_section_sold").remove();
+  <% end %>
+<% elsif params[:most_trade].eql?('true') %>
+  <% if params[:page_no].to_i > 1 %>
+    $('#load_more_most_traded_collection').append("<%= j render 'sold_out_collections', collections: @most_traded, sold_text: true, trade_text: true %>");
+  <% else %>
+    $('#load_more_most_traded_collection').html("<%= j render 'sold_out_collections', collections: @most_traded, sold_text: true, trade_text: true %>");
+  <% end %>
+  <% if @most_traded.next_page.present? %>
+    $("#load_more_link_most_trade").attr("href", "<%= dashboard_path(page_no: @most_traded.next_page, most_trade: true, sort_ago: params[:sort_ago]) %>");
+  <% else %>
+    $(".load_more_section_most_traded").remove();
+  <% end %>
+<% else %>
+  <% if params[:sort_by].present? || params[:type].present? %>
+    <% if params[:type].eql?('price') %>
+      $('.price_sort').attr('sort_by', "<%= params[:sort_by].eql?('asc') ? 'desc' : 'asc' %>");
+      $('.price_sort').addClass('active');
+      $('.type_sort').removeClass('active');
+    <% elsif params[:type].eql?('type') %>
+      $('.type_sort').attr('sort_by', "<%= params[:sort_by].eql?('asc') ? 'desc' : 'asc' %>");
+      $('.price_sort').removeClass('active');
+      $('.type_sort').addClass('active');
+    <% end %>
+    <% if params[:page_no].to_i > 1 %>
+      $('#load_more_collection').append("<%= j render 'category_collections', sold_text: false, already_sold: params[:type].eql?('type') %>");
+    <% else %>
+      $('#load_more_collection').html("<%= j render 'category_collections', sold_text: false, already_sold: params[:type].eql?('type') %>");
+    <% end %>
+  <% else %>
+    $("#load_more_collection").append("<%=j render 'category_collections', sold_text: false, already_sold: params[:type].eql?('type') %>");
+  <% end %>
+  <% if @category_collections.next_page.present? %>
+    $("#load_more_link").attr("href", "<%= dashboard_path(query: params[:query], sort_by: params[:sort_by], category: params[:category], page_no: @category_collections.next_page, type: params[:type], already_sold: params[:type].eql?('type')) %>");
+  <% else %>
+    $(".load_more_section").remove();
+  <% end %>
+<% end %>
+ReactRailsUJS.mountComponents();

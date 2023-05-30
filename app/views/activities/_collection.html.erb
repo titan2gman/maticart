@@ -1,0 +1,220 @@
+<% if activity.event == 'create' ||
+        (activity.event == 'update' &&
+                Collection.is_valid_activity(activity) &&
+                (!activity.changeset["state"].present? ||
+                        (activity.changeset["state"].present? && activity.changeset["state"] != ["pending", "approved"]))) %>
+    <% cover_image = activity.item.cover.present? ? activity.item.cover : activity.item.attachment %>
+    <% custom_tab = selected_tab(current_user, activity.item) %>
+    <% custom_tab_options = current_user.custom_tabs.map{|u| [u.tab_name, u.id]} %>
+    <% custom_tab_options << ['Show', 'show'] if custom_tab&.tab_name == 'Discarded' %>
+    <%if @thumbnail_type.eql?('mini_thumbnail') %>
+      <div class="activity">
+        <% if activity.event == "create" %>
+            <div class="activity__cover">
+              <a class="lightbox" href="<%= url_for(cover_image) %>" data-lightbox="image-1">
+                <div class="lightbox_custom ">
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512">
+                    <g>
+                      <g>
+                        <path d="m499.4,250.8c-51-86.3-143.6-140.4-243.4-140.4s-192.5,54.1-243.4,140.4c-2.1,3.1-2.1,7.3 5.32907e-15,10.4 51,86.3 143.6,140.4 243.4,140.4s192.5-54.1 243.4-140.4c2.1-3.1 2.1-7.3 0-10.4zm-243.4,130c-90.5,0-174.8-47.8-221.6-124.8 46.8-77 131.1-124.8 221.6-124.8s174.8,47.8 221.6,124.8c-46.8,77-131.1,124.8-221.6,124.8z"/>
+                        <path d="m256,162.4c-52,0-93.6,41.6-93.6,93.6 0,52 41.6,93.6 93.6,93.6s93.6-41.6 93.6-93.6c0-52-41.6-93.6-93.6-93.6zm0,166.4c-40.6,0-72.8-32.3-72.8-72.8s32.3-72.8 72.8-72.8 72.8,32.3 72.8,72.8-32.2,72.8-72.8,72.8z"/>
+                        <path d="m256,214.4v20.8c11.4,0 20.8,9.4 20.8,20.8s-9.4,20.8-20.8,20.8-20.8-9.4-20.8-20.8h-20.8c0,22.9 18.7,41.6 41.6,41.6 22.9,0 41.6-18.7 41.6-41.6s-18.7-41.6-41.6-41.6z"/>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+              </a>
+              <%= link_to collection_path(activity.item.address), class: "image_link", target: '_blank' do %>
+                <%= image_tag cover_image.blob.variant(resize_to_limit: [180, 202]) %>
+              <% end %>
+            </div>
+            <div class="activity__content">
+              <h3 class="activity__title d-flex align-items-start justify-content-between flex-column flex-md-row align-items-md-center">
+                <%= link_to collection_path(activity.item.address),target: '_blank' do %>
+                    <%= activity.item.title %>
+                <% end %>
+              </h3>
+              <p class="activity__text">
+                <% if activity.item.put_on_sale || activity.item.bids.size > 0 %>
+                  <span class="for_txt">for <b><%= activity.item.instant_sale_price %>
+                    <%=image_tag 'polygon_logo.png', alt: 'polygon', class: 'matic_logo'%> MATIC</b>
+                  </span>
+                <% end %>
+                <% if activity.item.put_on_sale %>
+                  <span class="for_txt inline_blk"><%= 'on sale ' %></span>
+                <% else %>
+                  <span class="for_txt inline_blk"><%= 'not on sale ' %></span>
+                <% end %>
+                <% if activity.item.video_nft %>
+                  <%= link_to collection_path(activity.item.address), class: 'center_icon' do %>
+                    <i data-toggle="tooltip" data-placement="top" title="Movie" class="fa fa-play-circle-o"></i>
+                  <% end %>
+                <% end %>
+              </p>
+              <span class="activity__time"><%= time_ago_in_words(activity.created_at) %> </span>
+              <% if current_user.present? %>
+                <%= select_tag :custom_tab_id, options_for_select(custom_tab_options, custom_tab&.id), { prompt: "--Select--", class: 'activity_select', data: { item_id: activity.item_id, item_type: 'nft'  } } %>
+              <% end %>
+            </div>
+        <% else %>
+          <% if activity.event == "update" %>
+            <% if activity.changeset.keys.include?("owner_id") %>
+             <% activity_dup = activity.dup %>
+                <div class="activity__cover <%= @thumbnail_type.eql?('mini_thumbnail') ? '' : 'thumbnail_cover' %>">
+                  <%if @thumbnail_type.eql?('mini_thumbnail')%>
+                    <a class="lightbox" href="<%= url_for(cover_image) %>" data-lightbox="image-1">
+                      <div class="lightbox_custom ">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512">
+                          <g>
+                            <g>
+                              <path d="m499.4,250.8c-51-86.3-143.6-140.4-243.4-140.4s-192.5,54.1-243.4,140.4c-2.1,3.1-2.1,7.3 5.32907e-15,10.4 51,86.3 143.6,140.4 243.4,140.4s192.5-54.1 243.4-140.4c2.1-3.1 2.1-7.3 0-10.4zm-243.4,130c-90.5,0-174.8-47.8-221.6-124.8 46.8-77 131.1-124.8 221.6-124.8s174.8,47.8 221.6,124.8c-46.8,77-131.1,124.8-221.6,124.8z"/>
+                              <path d="m256,162.4c-52,0-93.6,41.6-93.6,93.6 0,52 41.6,93.6 93.6,93.6s93.6-41.6 93.6-93.6c0-52-41.6-93.6-93.6-93.6zm0,166.4c-40.6,0-72.8-32.3-72.8-72.8s32.3-72.8 72.8-72.8 72.8,32.3 72.8,72.8-32.2,72.8-72.8,72.8z"/>
+                              <path d="m256,214.4v20.8c11.4,0 20.8,9.4 20.8,20.8s-9.4,20.8-20.8,20.8-20.8-9.4-20.8-20.8h-20.8c0,22.9 18.7,41.6 41.6,41.6 22.9,0 41.6-18.7 41.6-41.6s-18.7-41.6-41.6-41.6z"/>
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
+                    </a>
+                  <%end%>
+                  <%= link_to collection_path(activity.item.address),:class=>"image_link" do %>
+                    <%= cover_image.blob.variant(resize_to_limit: [180, 202]) %>
+                  <% end %>
+                </div>
+                <% if @thumbnail_type.eql?('mini_thumbnail')%>
+                  <div class="activity__content">
+                    <h3 class="activity__title d-flex align-items-start justify-content-between flex-column flex-md-row align-items-md-center">
+                      <%= link_to collection_path(activity.item.address) do %>
+                          <%= activity.item.title %>
+                      <% end %>
+                    </h3>
+                    <p class="activity__text">Transferred from
+                      <%= link_to_user(activity.reify.owner) do %>
+                        @<%= activity.reify.owner.full_name %>
+                      <% end %>
+                      <span class="for_txt"> to <b>@<%= link_to_name(activity_dup.item.owner) %></b></span></p>
+                    <span class="activity__time"><%= time_ago_in_words(activity_dup.created_at.nil? ? activity_dup.changeset["updated_at"].last : activity_dup.created_at) rescue "" %> </span></div>
+                    <% if current_user.present? %>
+                      <%= select_tag :custom_tab_id, options_for_select(custom_tab_options,custom_tab&.id), { prompt: "--Select--", class: 'activity_select', data: { item_id: activity.item_id, item_type: 'nft'  } } %>
+                    <% end %>
+                  </div>
+                <%end%>
+            <% elsif activity.changeset.keys.include?("put_on_sale") %>
+                <div class="activity__cover <%= @thumbnail_type.eql?('mini_thumbnail') ? '' : 'thumbnail_cover' %>">
+                  <%if @thumbnail_type.eql?('mini_thumbnail')%>
+                    <a class="lightbox" href="<%= url_for(cover_image) %>" data-lightbox="image-1">
+                      <div class="lightbox_custom ">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512">
+                          <g>
+                            <g>
+                              <path d="m499.4,250.8c-51-86.3-143.6-140.4-243.4-140.4s-192.5,54.1-243.4,140.4c-2.1,3.1-2.1,7.3 5.32907e-15,10.4 51,86.3 143.6,140.4 243.4,140.4s192.5-54.1 243.4-140.4c2.1-3.1 2.1-7.3 0-10.4zm-243.4,130c-90.5,0-174.8-47.8-221.6-124.8 46.8-77 131.1-124.8 221.6-124.8s174.8,47.8 221.6,124.8c-46.8,77-131.1,124.8-221.6,124.8z"/>
+                              <path d="m256,162.4c-52,0-93.6,41.6-93.6,93.6 0,52 41.6,93.6 93.6,93.6s93.6-41.6 93.6-93.6c0-52-41.6-93.6-93.6-93.6zm0,166.4c-40.6,0-72.8-32.3-72.8-72.8s32.3-72.8 72.8-72.8 72.8,32.3 72.8,72.8-32.2,72.8-72.8,72.8z"/>
+                              <path d="m256,214.4v20.8c11.4,0 20.8,9.4 20.8,20.8s-9.4,20.8-20.8,20.8-20.8-9.4-20.8-20.8h-20.8c0,22.9 18.7,41.6 41.6,41.6 22.9,0 41.6-18.7 41.6-41.6s-18.7-41.6-41.6-41.6z"/>
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
+                    </a>
+                  <%end%>
+                  <%= link_to collection_path(activity.item.address),:class=>"image_link" do %>
+                    <%= cover_image.blob.variant(resize_to_limit: [180, 202]) %>
+                  <% end %>
+                </div>
+                <% if @thumbnail_type.eql?('mini_thumbnail')%>
+                  <div class="activity__content">
+                    <h3 class="activity__title d-flex align-items-start justify-content-between flex-column flex-md-row align-items-md-center">
+                      <%= link_to collection_path(activity.item.address) do %>
+                          <%= activity.item.title %>
+                      <% end %>
+                    </h3>
+                    <p class="activity__text"><%= activity.changeset["put_on_sale"].last ? 'Put on sale' : 'Removed from sale' %> by
+                      <%= link_to_user(activity.item.owner) do %>
+                        @<%= activity.item.owner.full_name %>
+                      <% end %>   <span class="for_txt"> on </span>
+                      <span class="activity__time"><%= time_ago_in_words(activity.created_at) %> </span></p>
+                  </div>
+                <%end%>
+            <% elsif activity.changeset.keys.include?("instant_sale_price") %>
+              <div class="activity__cover <%= @thumbnail_type.eql?('mini_thumbnail') ? '' : 'thumbnail_cover' %>">
+                <%if @thumbnail_type.eql?('mini_thumbnail')%>
+                  <a class="lightbox" href="<%= url_for(cover_image) %>" data-lightbox="image-1">
+                    <div class="lightbox_custom ">
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512">
+                        <g>
+                          <g>
+                            <path d="m499.4,250.8c-51-86.3-143.6-140.4-243.4-140.4s-192.5,54.1-243.4,140.4c-2.1,3.1-2.1,7.3 5.32907e-15,10.4 51,86.3 143.6,140.4 243.4,140.4s192.5-54.1 243.4-140.4c2.1-3.1 2.1-7.3 0-10.4zm-243.4,130c-90.5,0-174.8-47.8-221.6-124.8 46.8-77 131.1-124.8 221.6-124.8s174.8,47.8 221.6,124.8c-46.8,77-131.1,124.8-221.6,124.8z"/>
+                            <path d="m256,162.4c-52,0-93.6,41.6-93.6,93.6 0,52 41.6,93.6 93.6,93.6s93.6-41.6 93.6-93.6c0-52-41.6-93.6-93.6-93.6zm0,166.4c-40.6,0-72.8-32.3-72.8-72.8s32.3-72.8 72.8-72.8 72.8,32.3 72.8,72.8-32.2,72.8-72.8,72.8z"/>
+                            <path d="m256,214.4v20.8c11.4,0 20.8,9.4 20.8,20.8s-9.4,20.8-20.8,20.8-20.8-9.4-20.8-20.8h-20.8c0,22.9 18.7,41.6 41.6,41.6 22.9,0 41.6-18.7 41.6-41.6s-18.7-41.6-41.6-41.6z"/>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                  </a>
+                <%end%>
+                <%= link_to collection_path(activity.item.address),:class=>"image_link" do %>
+                  <%= cover_image.blob.variant(resize_to_limit: [180, 202]) %>
+                <% end %>
+              </div>
+              <% if @thumbnail_type.eql?('mini_thumbnail')%>
+                <div class="activity__content">
+                  <h3 class="activity__title d-flex align-items-start justify-content-between flex-column flex-md-row align-items-md-center">
+                    <%= link_to collection_path(activity.item.address) do %>
+                        <%= activity.item.title %>
+                    <% end %>
+                  </h3>
+                  <p class="activity__text">Price updated by
+                    <%= link_to_user(activity.item.owner) do %>
+                      @<%= activity.item.owner.full_name %>
+                    <% end %>
+                    <span class="for_txt">for <b><%=activity.changeset["instant_sale_price"].last%><%=image_tag 'polygon_logo.png', alt: 'polygon', class: 'matic_logo'%> WMATIC</b></span></p>
+                  <span class="activity__time"><%= time_ago_in_words(activity.created_at) %> </span>
+                  <% if current_user.present? %>
+                    <%= select_tag :custom_tab_id, options_for_select(custom_tab_options,custom_tab&.id), { prompt: "--Select--", class: 'activity_select', data: { item_id: activity.item_id, item_type: 'nft'  } } %>
+                  <% end %>
+                </div>
+              <%end%>
+            <% elsif activity.changeset["state"].present? && activity.changeset["state"] == ["approved", "burned"] %>
+                <div class="activity__cover <%= @thumbnail_type.eql?('mini_thumbnail') ? '' : 'thumbnail_cover' %>">
+                  <a class="lightbox" href="<%= url_for(cover_image) %>" data-lightbox="image-1">
+                    <div class="lightbox_custom ">
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512">
+                        <g>
+                          <g>
+                            <path d="m499.4,250.8c-51-86.3-143.6-140.4-243.4-140.4s-192.5,54.1-243.4,140.4c-2.1,3.1-2.1,7.3 5.32907e-15,10.4 51,86.3 143.6,140.4 243.4,140.4s192.5-54.1 243.4-140.4c2.1-3.1 2.1-7.3 0-10.4zm-243.4,130c-90.5,0-174.8-47.8-221.6-124.8 46.8-77 131.1-124.8 221.6-124.8s174.8,47.8 221.6,124.8c-46.8,77-131.1,124.8-221.6,124.8z"/>
+                            <path d="m256,162.4c-52,0-93.6,41.6-93.6,93.6 0,52 41.6,93.6 93.6,93.6s93.6-41.6 93.6-93.6c0-52-41.6-93.6-93.6-93.6zm0,166.4c-40.6,0-72.8-32.3-72.8-72.8s32.3-72.8 72.8-72.8 72.8,32.3 72.8,72.8-32.2,72.8-72.8,72.8z"/>
+                            <path d="m256,214.4v20.8c11.4,0 20.8,9.4 20.8,20.8s-9.4,20.8-20.8,20.8-20.8-9.4-20.8-20.8h-20.8c0,22.9 18.7,41.6 41.6,41.6 22.9,0 41.6-18.7 41.6-41.6s-18.7-41.6-41.6-41.6z"/>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                  </a>
+                  <%= link_to collection_path(activity.item.address),:class=>"image_link" do %>
+                    <%= cover_image.blob.variant(resize_to_limit: [180, 202]) %>
+                  <% end %>
+                </div>
+                <% if @thumbnail_type.eql?('mini_thumbnail')%>
+                  <div class="activity__content">
+                    <h3 class="activity__title d-flex align-items-start justify-content-between flex-column flex-md-row align-items-md-center">
+                      <%= link_to collection_path(activity.item.address) do %>
+                          <%= activity.item.title %>
+                      <% end %>
+                    </h3>
+                    <p class="activity__text">Burned on updated by
+                      <%= link_to_user(activity.item.owner) do %>
+                        @<%= activity.item.owner.full_name %>
+                      <% end %>   <span class="for_txt"> on </span>
+                      <span class="activity__time"><%= time_ago_in_words(activity.created_at) %> </span></p>
+                    <% if current_user.present? %>
+                        <%= select_tag :custom_tab_id, options_for_select(custom_tab_options,custom_tab&.id), { prompt: "--Select--", class: 'activity_select', data: { item_id: activity.item_id, item_type: 'nft'  } } %>
+                      <% end %>
+                  </div>
+                <%end%>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <%= render "thumbnail_collection", collection: activity.item, sold_text: false %>
+      </div>
+    <% end %>
+<% end %>

@@ -1,0 +1,525 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+id:
+  activerecord:
+    attributes:
+      collection:
+        attachment: dokumen terkumpul
+
+  admin:
+    no_records: Data tidak ditemukan
+    dashboard:
+      users: No. Pengguna
+      token: No. Token
+      title: Dasbor
+    side_menu:
+      menu: Menu
+      title: Dasbor
+      users: Pengguna
+      list_users: Daftar Pengguna
+      report_Users: Laporkan Pengguna
+      categories: Kategori
+      fees: Biaya - Biaya
+      transactions: Transaksi
+      settings: Pengaturan
+      dashboard_settings: Pengaturan Dasbor
+      featured_users: Fitur Pengguna
+      featured_collections: Fitur koleksi
+    users:
+      index:
+        title: Daftar Pengguna
+        address: Alamat
+        name: Nama Akun
+        bio: Bio
+        personal_url: Personal URL
+        is_verified: Terverifikasi
+        is_approved: Telah Disetujui
+        approve_link: Menyetujui
+        deny_link: Menolak
+        verify_link: Verifikasi
+        block_link: Blok
+        enable_link: Izinkan
+      show:
+        title: Lihat Pengguna
+        address: Alamat
+        name: Nama Tampilan
+        bio: Bio
+        personal_url: Sesuaikan URL
+        is_verified: Terverifikasi
+        twitter_link: Nama Pengguna Twitter
+      form:
+        name: Nama Tampilan
+        bio: Ceritakan secara singkat tentang diri anda
+        attachment: Gambar Profil Pengguna
+        personal_url: Masukan penyesuaian URL
+        is_verified: Verifikasi Pengguna
+        custom_url: Sesuaikan URL
+        twitter_link: Nama Pengguna Twitter
+      reports:
+        title: Laporan
+        user: Pengguna
+        reportee: Terlapor
+        message: Pesan 
+      confirmation:
+        resend_confirmation: Kirim kembali instruksi untuk konfirmasi
+        email: Surel
+      mailer:
+        account_confirmation: Anda dapat melakukan konfirmasi surel melalui tautan di bawah
+        confirm: Konfirmasi akun saya
+        email_changed_unconfirmed: "Kami menghubungi anda untuk memberitahukan bahwa surel anda telah diubah menjadi %{unconfirmed_email }."
+        email_changed: "Kami menghubungi anda untuk memberitahukan bahwa surel anda telah diubah menjadi %{email }."
+        pwd_changed: Kami menghubungi anda untuk memberitahukan bahwa kata sandi anda telah diubah.
+    categories:
+      index:
+        title: Daftar Kategori
+        new_category: Kategori Baru
+        name: Nama Kategori
+        is_active: Aktif
+      show:
+        title: Lihat Kategori
+        name: Nama
+        is_active: Aktif
+      form:
+        name: Nama Kategori
+        is_active: Aktif
+    setting:
+      title: Pengaturan
+      recent_hours: Jam Terakhir
+      enter_recent_hours: Masukan jam terakhir
+    fees:
+      index:
+        title: Daftar Biaya
+        new_category: Biaya baru
+        name: Nama Biaya
+        fee_type: Jenis Biaya
+        price: Harga Biaya
+        per_mile: Per Mil
+      show:
+        title: Lihat Biaya
+        name: Nama Biaya
+        fee_type: Jenis Biaya
+        price: Harga Biaya
+        per_mile: Per Mil
+      form:
+        name: Nama Biaya
+        fee_type: Jenis Biaya
+        price: Harga Biaya
+        per_mile: Per Mil
+    featured_users:
+      index:
+        title: Fitur Daftar Pengguna
+        add_new: Tambahkan Baru
+        id: Pengenal
+        name: Nama
+        address: alamat
+      form:
+        search_user: Cari Pengguna
+        search_user_label: Alamat Pengguna
+        add: Tambahkan
+        submit: Submit
+        title: Fitur Pengguna Baru
+    featured_collections:
+      index:
+        title: Fitur Daftar Koleksi
+        add_new: Tambahkan Baru
+        id: ID
+        name: Nama
+        address: alamat
+      form:
+        search_collection: Cari NFT
+        add: Tambahkan
+        submit: Kirimkan
+        title: Fitur Baru Koleksi
+    transactions:
+      index:
+        title: Daftar Transaksi
+        id: ID
+        buyer: Pembeli
+        seller: Penjual
+        currency: Mata uang
+        currency_type: Jenis Mata Uang
+        channel: Sistem Pembayaran
+        service_fee: Biaya Servis
+        collection: Barang
+  common:
+    example_hotbid_redeemable_title: Contoh jenis Hotbid yang dapat ditukarkan
+    not_for_sale: Tidak untuk dijual.
+    collections: Koleksi
+    nft_user_name: Nama Pengguna NFT
+    no_new_notifications: Tidak ada pemberitahuan baru untuk anda ...!
+    loading_text: Sedang mempersiapkan mohon tunggu . . .
+    wrong_network: Jaringan salah
+    wrong_ntk_error: Mohon ubah jaringan anda ke %{network}
+  search:
+    placeholder: Cari barang, koleksi, kreator, negara..
+  shared:
+    cancel: Batal
+    change: Ganti
+    edit: Ubah
+    destroy: Buang
+    delete: Hapus
+    in_progress: 'Sedang proses..'
+    done: Selesai
+    save: Simpan
+    buy_now: Beli sekarang
+    show: Tampilkan
+    back: Kembali
+    submit: Kirimkan
+    update: Perbarui
+    add: Tambahkan
+    search: Cari
+    try_again: Coba lagi
+    start: Mulai
+    go_back: Kembali 
+    purchase: Pembelian
+    rejected: Ditolak
+    highest_bid: Tawaran tertinggi
+    place_a_bid: Ajukan penawaran
+    reserve_price: Harga minimum penjualan
+    put_on_sale: Dijual
+    put_on_sale_msg: Anda akan menerima penawaran untuk barang ini
+    pos_msg: Anda akan menerima penawaran untuk barang ini
+    instant_sale_price: Harga paling cepat terjual
+    instant_sale_price_msg: Masukan harga untuk barang paling cepat terjual
+    unlock_one_purchased: Dapat dibuka setelah pembelian
+    unlock_one_purchased_msg: Konten akan terbuka setelah transaksi berhasil 
+    follow_steps: Ikuti langkah
+    transfer: Transfer
+    convert_eth_to_weth: Konversikan MATIC ke WMATIC
+    transaction_with_wallet: Lakukan transaksi dengan dompet digital anda
+    accept_bid: Terima penawaran
+    go_to_dashboard: Ke Dasbor
+    share_link: Bagikan tautan ke halaman ini
+    go_to_my_items: Ke Barang Saya
+    no_data_found: Data tidak ditemukan
+  bids:
+    new_bid: Penawaran Baru
+    show: 
+      users: 'Pengguna:'
+      collection: 'Koleksi:'
+      crypto_currency_type: 'Jenis Mata Uang Kripto:'
+      crypto_currency: 'Mata Uang Kripto:'
+      register_date: 'Tanggal daftar:'
+      is_active: 'Aktif:'
+  activities:
+    filter_head: FILTER NFT ANDA SENDIRI
+    name_head: Masukkan nama filter NFT sendiri
+  users:
+    link:
+      edit: "Ubah Pengguna"
+      show: "Ubah Profil"
+    heading:
+      edit: Perbarui Pengguna
+    edit:
+      profile_details: Detail Profil
+      followers: Pengikut
+      upload_profile: Unggah Profil
+      upload_cover: Unggah Halaman
+      recommended_image_size: 'Ukuran minimum gambar yang disarankan. %{size}'
+      gif_compatible: Sesuai dengan Gifs./ Gifs mendukung
+      user_name: Nama Pengguna
+      custom_url: Sesuaikan URL
+      url_sample: nft.com/
+      twitter_username: Nama Pengguna Twitter
+      link: Tautan
+      twitter_link_text: Tautkan akun Twitter anda untuk mendapatkan lencana terverifikasi 
+      personal_site: halaman pribadi atau Portfolio
+      bio: Bio
+      update_success: Detail profil berhasil diperbarui
+    show:
+      address: Alamat
+      name: Nama
+      bio: Pengenal
+      filters: Filter
+      followers: Pengikut
+      follow: Ikuti
+      unfollow: Berhenti mengikuti
+      on_sale: Dijual
+      created: Tercetak
+      collectibles: Kolektibel
+      liked: Disukai
+      activity: Aktivitas
+      open_filter: Buka filter
+      clear_all: Hapus semua
+      minted: Tercetak
+      mynfts: NFT Saya
+      bids: Penawaran
+      likes: Suka
+      followings: Mengikuti
+      profile_details: Detail profil
+      login: Masuk
+      email: Surel
+      first_name: Nama awal
+      last_name: Nama akhir
+      change_password: Ubah kata sandi
+      old_password: Kata sandi lama
+      new_password: Kata sandi baru
+      confirm_new_password: Konfirmasi kata sandi baru
+    form:
+      name: Nama Akun
+      bio: Ceritakan secara singkat tentang diri anda
+      attachment: Gambar Profil Pengguna
+      personal_url: Masukan penyesuaian URL
+      update: Perbarui
+    following:
+      following_details: Mengikuti detail
+      following: Mengikuti
+      followers: Pengikut
+      started_following: mulai mengikuti 
+
+  dashboard:
+    sort_by_price: Diurutkan berdasarkan Harga
+    sort_by_type: Diurutkan berdasarkan Tingkat Penjualan Beberapa NFT
+    sort_by_certified: Diurutkan menurut Kreator Bersertifikat
+    all_categories: semua Kategori
+    recently_added: Baru-baru ini ditambahkan
+    limited_edition: "Edisi Terbatas '%{no_of_copies}' edisi"
+    search: Cari
+    items: Barang
+    users: Pengguna
+    top_buyers: Pembeli Teratas
+    top_sellers: Penjual Teratas 
+    explore: Baru-baru ini Dijual
+    recently_sold: Baru saja Terjual
+    connect_my_wallet: Hubungkan dengan dompet digital saya
+    title: Mulai buat dan jual NFT anda
+    set_your_wallet: Atur dompet digital anda
+    wallet_configuration_msg: Anda berhasil terhubung dengan dompet digital anda
+    wallet_choice: Apabila anda telah mengatur pilihan dompet anda, hubungkan marketplace %{app_name} dengan meng-klik tautan ini.
+    create_collection: Buat koleksi anda
+    create_collection_text: Klik buat dan atur koleksi anda. Tambahkan tautan sosial, deskripsi, profil & gambar banner, dan atur biaya penjualan kedua.
+    add_nfts: Tambahkan NFT anda 
+    nfts_help_text: Unggah hasil kerja anda, tambahkan judul dan deskripsi, dan atur NFT anda dengan properti, statistik, dan konten yang dapat diakses.
+    list_for_sale: Daftar untuk penjualan
+    choose_how_to_sell: Pilih diantara pelelangan, daftar harga tetap, dan daftar harga menurun. Anda tentukan bagaimana cara menjual NFT anda, dan kami akan bantu anda untuk menjualnya !
+    search_collections: Anda dapat mencari koleksi lainnya disini
+    search_results: Hasil pencarian untuk %{query}
+    explore_digital_assets: Jelajahi Aset Digital Ekslusif
+    free: gratis
+    marketplace: marketplace
+    selling_points_html: "Biaya Cetak Dikembalikan – <span style='color:red;'>Tanpa Biaya</span><br>Tanpa Biaya Servis - Tanpa Biaya Penyimpanan<br><span style='color:red;'>Harga Minimal Penjualan $0</span> – Royalti Kreator Tanpa Batas"
+    calltoaction_explore: Jelajahi
+    calltoaction_create: Buat
+    load_more: Mempersiapkan barang lainnya
+    collection: Koleksi
+  collections:
+    collection_name: Nama Koleksi / 1 dari 1
+    collection: Koleksi
+    collection_create: Buat koleksi
+    successfully_minted: Tercetak
+    liked_by: difavoritkan oleh
+    add_fv: Tambahkan ke favoritku
+    remove_fv: Remove from my favorites
+    my_favorites: Kesukaanku
+    form:
+      accept_bid: Terima penawaran
+      create_collection_tittle: 'Buat %{collection_type} barang kolektibel'
+      upload_file: "Unggah dokumen"
+      upload_cover: "Unggah sampul"
+      choose_file: Pilih dokumen
+      categories: Kategori
+      item_details: Detail barang
+      item_name: Nama barang
+      description: Deskripsi
+      number_of_copies: Nomor edisi
+      royalties: Royalti
+      properties: Properti
+      choose_collection: PILIH UNTUK DITEMPATKAN KE DALAM KOLEKSI SEBAGAI SOLO NFT
+      nft: SOLO NFT
+      collection: KOLEKSI
+      deploy_contract: Distribusi kontrak
+      deploy_contract_msg: Distribusi kode untuk koleksi kontrak baru
+      create_contract: Buat kontrak
+      preview: pratinjau
+      contract_detail: Detail kontrak
+      name: Nama
+      followers: Pengikut
+      symbol: Simbol
+      follow_steps: Ikuti langkah
+      sign_message: Tandai pesan
+      sign_message_text: Tandai pesan dengan preferensi koleksi baru
+      approve: Menyetujui
+      approve_text: Setujui kontrak marketplace Matic.art pada dompet digital anda bila belum selesai.
+      upload_mint: Cetak token
+      upload_mint_text: Menyetujui token pada dompet digital anda.
+      fixed_price: Atur harga tetap
+      fixed_price_text: Tandai pesan untuk pengaturan harga tetap
+      locked_content: Atur konten terkunci
+      locked_content_msg: Tandai pesan untuk mengamankan konten
+      create_collectible: Buat kolektibel
+      single: Tunggal
+      multiple: Ganda
+      collection_type_text: Alihkan antara pilihan tunggal dan ganda untuk memilih jumlah NFT yang harus dibuat dan mulai buat keberuntungan anda
+      collection_type_txt: Pilih “Tunggal” apabila anda ingin koleksi anda jadi salah satu dari jenisnya atau “Ganda” apabila anda ingin menjual satu koleksi berulang kali
+      collection_privacy: Kami tidak memiliki akses pribadi dan tidak dapat mengakses dana tanpa konfirmasi dari anda
+    show:
+      descriptions: Deskripsi
+      change_price_message: Berhasil diperbarui.
+      burn_error: NFT tidak disetujui.
+      burn_success: NFT berhasil dibakar.
+      invalid_user: ID Pengguna tidak sah
+      transfer_success: Token berhasil ditransfer.
+      more_options: Pilihan lain
+      put_on_sale: Dijual
+      change_price: Perubahan harga
+      transfer_token: Transfer token
+      burn_token: Bakar token
+      history: Riwayat
+      collection: Koleksi
+      creator: Kreator
+      bids: Penawaran
+      details: Detail
+      owners: Pemilik
+      prices: Harga
+      comments: Komentar
+      execute: Eksekusi
+      owner: Pemilik
+      year_created: Tahun dibuat
+      creation: Penciptaan
+      highest_bid: Tawaran tertinggi
+      lowest_bid: Tawaran terendah
+      report: Laporan
+      other_author_assets: Aset lain pemilik
+      unlock_description: Buka deskripsi
+      user_wallet_address: Alamat Dompet Pengguna Tujuan
+      transferring: Sedang mentransfer
+      follow_the_wallet: Ikuti dompet digital
+      place_a_bid: Ajukan penawaran
+      add_comment: Tambahkan komentar
+      bid_msg: Anda akan melakukan penawaran untuk
+      your_bid: Penawaran anda
+      crypto_type: Jenis Kripto
+      quantity: Kuantiti
+      your_balance: Saldo anda
+      your_erc20_balance: Your wmatic balance
+      your_bidding_balance: Saldo penawaran anda
+      service_fee: Biaya servis
+      total_bid_amount: Total jumlah penawaran
+      approve_your_bid: Menyetujui penawaran anda
+      approve_your_buy: Menyetujui pembelian anda.
+      approve: Menyetujui
+      approve_terms: Transaksi dilakukan hanya sekali per koleksi
+      create_a_signature: Buat tanda tangan untuk mengajukan penawaran
+      signature: Tanda tangan
+      burning: Membakar
+      burn_token_alert: Apakah anda yakin akan membakar token ini?, Tindakan ini tidak dapat dibatalkan, Token akan ditransfer ke alamat kosong.
+      remove_from_sale: Hilangkan dari penjualan
+      remove_sale_alert: Apakah anda yakin akan menghilangkan ini dari penjualan?, Penawaran yang ada akan dibatalkan.
+      accept_bid_by: Anda menerima penawaran untuk %{collection_title} oleh
+      royalty_fee: Biaya royalti
+      you_will_get: Anda akan mendapatkan
+      you_are_abt_purchase: Anda akan melakukan pembelian
+      quantity_available: 'Kuantiti:  %{token} tersedia'
+      buy_price: Harga beli
+      your_buy_balance: Saldo pembelian anda
+      you_will_pay: Anda akan membayar
+      pay: bayar
+      tx_fees_refund: Biaya Transaksi akan dikembalikan hingga %{refund_transfer_cap} matic.
+      contract_fees_refund: Biaya Kontrak akan dikembalikan hingga %{refund_transfer_cap} matic.
+      checkout: Periksa
+      owner_token: Pemilik %{token} edisi
+  header:
+    title: Hubungkan ke Polygon/Dompet Matic anda
+    connect_wallet: Hubungkan dompet anda  
+    wallet_help: Hubungkan dengan salah satu penyedia dompet digital yang tersedia atau buat dompet digital baru.
+    wallet_info: Apa itu dompet digital?
+    metamask_wallet: Dompet digital Metamask  
+    trust_wallet: Dompet digital Trust
+    walletconnect_wallet: WalletConnect
+    wallet_confi: Kami tidak memiliki akses pribadi dan tidak dapat mengakses dana tanpa konfirmasi dari anda
+    age_limit: Umur saya paling rendah 13 tahun
+    tc_acceptence: Saya menerima syarat dan ketentuan yang berlaku
+    proceed: Melanjutkan
+    help_center: Pusat Bantuan
+    descriptions: Deskripsi
+    creator: Kreator
+    home_title: Terbesar 
+    marketplace: Marketplace
+    home_desc: Marketplace digital untuk kolektibel kripto dan token yang tidak dapat dipertukarkan.
+    home_info: Beli, jual, dan temukan aset digital ekslusif.
+    explore: Jelajahi
+    collection: Koleksi
+    create: Buat
+    profile: Profil
+    settings: Pengaturan
+    activity: Aktivitas
+    my_nfts: NFTs saya
+    faq: FAQ
+    contact: Kontak
+    discussion: Diskusi
+    sign_out: Keluar
+    notifications: Pemberitahuan
+  footer:
+    quick_links: Tautan cepat
+    about: Tentang
+    abt_enigma: Tentang Enigma
+    explore: Jelajahi
+    support: Mendukung
+    HIW: Bagaimana cara kerjanya?
+    community: Komunitas
+    discussion: Diskusi
+    voting: memungut suara
+    suggest_feature: Menyarankan fitur
+    social_media: Media sosial
+    tc: Syarat dan Ketentuan
+    privacy_policy: Kebijakan Privasi
+    tag_line: "%{app_name} gagasan dari keberagaman atas sekelompok orang berbakat dari dunia seni dan keuangan"
+    authors: Penggubah
+    activity: Aktivitas
+    art: Seni
+    photography: Fotografi
+    games: Permainan
+    music: Musik
+    domains: Domain
+    defi: Defi
+    metaverses: Metaverses
+    memes: Memes
+
+  notifications:
+    mint_success: Berhasil dicetak %{collection_name}
+    refund_minting: "Kembalikan dana %{refund_fee} Matic untuk pencetakan %{nft_name}"
+    refund_transfer: "Pengembalian dana %{refund_fee} Matic untuk transfer %{nft_name}"
+    refund_contract_fee: "Kembalikan dana %{refund_fee} Matic untuk koleksi Sendiri %{nft_name}"
+    put_on_sale: Terdaftar oleh %{owner_name}
+    price_updated: Harga diperbarui untuk %{price} oleh %{owner_name}
+    ownership_transfer: Ditransfer ke %{buyer_name} oleh %{owner_name}
+    new_bid: Penawaran diajukan %{value} oleh %{buyer_name}
+    bid_accept: Penawaran anda telah diterima oleh %{owner_name}
+    expire_bid: Penawaran anda akan kadaluarsa pada %{owner_name}
+    profile_verified: Profil berhasil diverifikasi
+    burn_token: Dibakar %{collection_name} oleh %{owner_name}
+    nft_sold: NFT %{collection_name} berhasil terjual
+    following: Pengguna %{user_name} mulai mengikuti
+    like: Pengguna %{user_name} menambahkan %{collection_name} ke favoritnya.
+
+  api:
+    description_suffix: "  \nFreely Minted @ https://matic.art"

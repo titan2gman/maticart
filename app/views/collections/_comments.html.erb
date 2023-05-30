@@ -1,0 +1,11 @@
+<% if comments.present? %>
+  <% comments.each do |comment| %>
+    <div class="asset__desc comment">        
+      <p class="content_details"><%= comment.description %></p>
+      <p>By @<%= link_to comment.user.address, user_path(comment.user) %></p>
+      <p class="content_details">at <%= comment.created_at.strftime('%d/%m/%y')%></p>
+    </div>
+  <% end %>
+<% else %>
+  <%= t("collections.show.no_records") %>
+<% end %>

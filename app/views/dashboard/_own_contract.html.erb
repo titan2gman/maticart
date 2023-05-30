@@ -1,0 +1,23 @@
+<%hidden_field_tag "contract_address", contract.address%>
+
+<div class="featured-creators-box cluster-box" style="margin-top: 20px">
+  <%if current_user && contract.owner.eql?(current_user) && params[:controller].eql?('users') && params[:action].eql?('show') && contract.collections.unscoped.where(nft_contract_id: contract.id, state: :approved).present?%>
+    <%= link_to remove_nft_contract_users_path(id: @user&.address, nft_id: contract.id, page_no: @page_no), method: :delete, data: { confirm: 'Are you sure?' }, class: 'trash_link' do %>
+      <i class="fa fa-trash"></i>
+    <% end %>
+  <%end%>
+  <a target='_blank' href="<%= nft_contract_path(contract.address)%>">
+    <div class="featured-creators-box-img">
+      <div class="featured-creators-box-img-bg" style="background-image:url('<%=contract.cover_url(:banner)%>')">
+        <img src="<%=contract.cover_url(:banner)%>;" class="img-responsive">
+      </div>
+      <div class="featured-creators-box-img-profile">
+        <img src="<%=contract.attachment_url(:circle)%>" class="img-responsive">
+      </div>
+    </div>
+    <div class="featured-creators-box-content h-80">
+      <h4><%=contract.name%></h4>
+      <p><%=contract.description%></p>
+    </div>
+  </a>
+</div>

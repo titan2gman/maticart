@@ -1,0 +1,147 @@
+<style type="text/css">
+  .lb-closeContainer {
+    display: none;
+  }
+</style>
+<main class="main">
+  <div class="container">
+    <div class="row row--grid">
+      <!-- title -->
+      <div class="col-12">
+        <div class="main__title main__title--page filter_group_title">
+          <h1>Activity</h1>
+          <%unless params[:filters] == "my_collections"%>
+            <div class="filter__group navbar_filter_group">
+              <ul class="filter__checkboxes">
+                <li>
+                  <input id="mini_thumbnail" type="checkbox" name="mini_thumbnail" onclick="window.location.href ='<%= activities_path(activity_type: params[:activity_type], filters: params[:filters], thumbnail_type: 'mini_thumbnail' )%>'">
+                  <label for="mini_thumbnail">Mini Thumbnails</label>
+                </li>
+                <li>
+                  <input id="thumbnail" type="checkbox" name="thumbnail" onclick="window.location.href ='<%= activities_path(activity_type: params[:activity_type], filters: params[:filters], thumbnail_type: 'thumbnail' )%>'">
+                  <label for="thumbnail">Thumbnails</label>
+                </li>
+              </ul>
+            </div>
+          <%end%>
+        </div>
+      </div>
+      <!-- end title -->
+    </div>
+
+    <div class="row">
+      <!-- sidebar -->
+      <div class="col-12 col-xl-3 order-xl-2 "> <!-- grey_bg ac_s -->
+        <div class="filter-wrap">
+          <button class="filter-wrap__btn" type="button" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">Open filter</button>
+          <%=link_to 'Create you own Filter', 'javascript:void(0);', onclick: "window.show_modal('#customTabForm')" %>
+          <div class="collapse filter-wrap__content" id="collapseFilter">
+            <!-- filter -->
+            <div class="filter filter--sticky">
+              <h4 class="filter__title">Filters <a href="<%=activities_path%>" style="font-size: 12px;">Clear all</a></h4>
+
+              <div class="filter__group">
+                <ul class="filter__checkboxes">
+                  <% options = { tab: "activity" } %>
+                  <li>
+                    <% if @nft_filter %>
+                      <% params[:filters] = ['minted']%>
+                      <input id="type5" type="checkbox" name="type5" <%= (params[:activity_type].eql?('blank') || is_filter_active(params[:filters], 'minted') == 'active') ? "checked='true'" : '' %> onclick="window.location.href ='<%= activities_path(activity_type: "activity", filters: 'minted', thumbnail_type: @thumbnail_type) %>'">
+                    <% else%>
+                      <input id="type5" type="checkbox" name="type5" <%= (params[:activity_type].eql?('blank') || is_filter_active(params[:filters], 'minted') == 'active') ? "checked='true'" : '' %> onclick="window.location.href ='<%= activities_path(activity_type: "activity", filters: 'minted', thumbnail_type: @thumbnail_type) %>'">
+                    <% end %>
+                    <label for="type5">My NFTs minted on Matic.Art <%= ApplicationController.helpers.get_actual_count("activity",current_user, 'minted') > 0 ? "(#{ApplicationController.helpers.get_actual_count("activity", current_user, 'minted')})" : '' %></label>
+                  </li>
+                  <div class="show_icon">
+                    <%= render 'activities/custom_tab' %>
+                  </div>
+                  <!-- <li>
+                    <input id="discard" type="checkbox" name="discard"  <%#= (is_filter_active(params[:filters], 'discard') == 'active') ? "checked='true'" : '' %> onclick="window.location.href ='<%#= activities_path(activity_type: "activity", filters: "discard", thumbnail_type: @thumbnail_type) %>'">
+                    <label for="discard">Discard</label>
+                  </li> -->
+                  <li>
+                    <input id="type9" type="checkbox" name="type9"  <%= (is_filter_active(params[:filters], 'my_collections') == 'active') ? "checked='true'" : '' %> onclick="window.location.href ='<%= activities_path(activity_type: "activity", filters: "my_collections", thumbnail_type: @thumbnail_type ) %>'">
+                    <label for="type9">My Collections on  Matic.Art <%= ApplicationController.helpers.get_actual_count("activity", current_user, 'my_collections') > 0 ? "(#{ApplicationController.helpers.get_actual_count("activity", current_user, 'my_collections')})" : '' %></label>
+                  </li>
+                  <!--<li>
+                    <input id="type12" type="checkbox" name="type12"  <%#= (is_filter_active(params[:filters], 'like') == 'active') ? "checked='true'" : '' %> onclick="window.location.href ='<%#= activities_path(activity_type: "activity", filters: "like", thumbnail_type: @thumbnail_type ) %>'">
+                    <label for="type12">My Likes</label>
+                  </li>-->
+                  <li>
+                    <input id="type12" type="checkbox" name="type12"  <%= (is_filter_active(params[:filters], 'like') == 'active') ? "checked='true'" : '' %> onclick="window.location.href ='<%= activities_path(activity_type: "activity", filters: "like", thumbnail_type: @thumbnail_type ) %>'">
+                    <label for="type12"><%= t('collections.my_favorites') %> <%= ApplicationController.helpers.get_actual_count("activity", current_user, 'like') > 0 ? "(#{ ApplicationController.helpers.get_actual_count("activity", current_user, 'like')})" : "" %></label>
+                  </li>
+                  <li>
+                    <input id="type10" type="checkbox" name="type10"  <%= (is_filter_active(params[:filters], 'owner_bid') == 'active') ? "checked='true'" : '' %> onclick="window.location.href ='<%= activities_path(activity_type: "activity", filters: "owner_bid", thumbnail_type: @thumbnail_type ) %>'">
+                    <label for="type10">Bids received <%= ApplicationController.helpers.get_actual_count("activity", current_user, 'owner_bid') > 0 ? "(#{ApplicationController.helpers.get_actual_count("activity", current_user, 'owner_bid')})" : "" %>
+                    </label>
+                  </li>
+                  <li>
+                    <input id="type11" type="checkbox" name="type11"  <%= (is_filter_active(params[:filters], 'bid') == 'active') ? "checked='true'" : '' %> onclick="window.location.href ='<%= activities_path(activity_type: "activity", filters: "bid", thumbnail_type: @thumbnail_type ) %>'">
+                    <label for="type11">Bids placed  <%= ApplicationController.helpers.get_actual_count("activity", current_user, 'bid') > 0 ? "(#{ApplicationController.helpers.get_actual_count("activity", current_user, 'bid')})" : "" %>
+                    </label>
+                  </li>
+                  <li>
+                    <input id="type13" type="checkbox" name="type13"  <%= (is_filter_active(params[:filters], 'following') == 'active') ? "checked='true'" : '' %> onclick="window.location.href ='<%= activities_path(activity_type: "activity", filters: "following", thumbnail_type: @thumbnail_type ) %>'">
+                    <label for="type13">Followings <%= ApplicationController.helpers.get_actual_count("activity", current_user, 'following') > 0 ? "(#{ApplicationController.helpers.get_actual_count("activity",current_user, 'following')})" : "" %></label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- end filter -->
+          </div>
+        </div>
+      </div>
+      <!-- end sidebar -->
+      <!-- content -->
+      <div class="col-12 col-xl-9 order-xl-1">
+        <div class="row row--grid">
+          <div class="col-12 col-lg-12">
+            <div class="activity_grp" id='load_more_activities'>
+              <% if @activities.present? %>
+                <% @activities.each do |activity, id| %>
+                  <% if params[:filters] == "my_collections"%>
+                    <%= render 'activities/own_contract', contract: activity %>
+                  <%else%>
+                    <% next if activity.item.blank? %>
+                    <%if ["Follow", "Like", "Collection", "Bid"].include?(activity.item_type)%>
+                      <%= render "activities/#{activity.item_type.downcase}", activity: activity %>
+                    <%end%>
+                  <%end%>
+                <% end %>
+              <% else %>
+                <% 8.times do %>
+                  <%= render partial: 'common/empty_activity' %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <% if @activities.present? && @activities.next_page.present? %>
+          <div class="row load_more_section">
+            <div class="col-12">
+              <div class="load_more text-center p-20">
+                <%= link_to 'Load more', activities_path(filters: params[:filters], page_no: @activities.next_page, activity_type: params[:activity_type]), remote: true, id: 'load_more_activity', class: 'home__btn home__btn--clr load_more_btn' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <!-- end content -->
+    </div>
+  </div>
+  <%= render 'custom_tab_form' %>
+</main>
+<script type="text/javascript">
+  setTimeout(function () {
+    thumbnail_type = "<%= @thumbnail_type %>"
+    if (thumbnail_type == "thumbnail") {
+      $('#thumbnail').prop('checked', true);
+      $('#mini_thumbnail').prop('checked', false);
+    }
+    else {
+      $('#mini_thumbnail').prop('checked', true);
+      $('#thumbnail').prop('checked', false);
+    }
+  }, 100);
+</script>

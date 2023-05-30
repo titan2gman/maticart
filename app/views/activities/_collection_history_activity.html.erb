@@ -1,0 +1,21 @@
+<div class="asset__action asset__action--verified">
+  <%= link_to link_to_user(transaction.seller), class:"user_img" do %>
+    <%= image_tag url_for(transaction.seller.profile_image(:icon)) %>
+  <% end %>
+  <p class="content_details">
+  	<% if transaction.collection.multiple? %>
+      @<%= link_to transaction.seller.full_name, link_to_user(transaction.seller) %> transfered 
+      <% if transaction.quantity > 0 %>
+        <%= transaction.quantity.to_i %> <%= transaction.quantity.to_i > 1 ? 'editions' : 'editions' %>&nbsp; for <%= transaction.currency %> <%= transaction.currency_type %>
+        <br>
+        <%= time_ago_in_words(transaction.created_at) %> ago
+      <% else %>
+        for <%= transaction.currency %> <%= transaction.currency_type %>
+        <br>
+        <%= time_ago_in_words(transaction.created_at) %> ago
+      <% end %>
+    <% else %>
+      Transfered <%= time_ago_in_words(transaction.created_at) %> ago from <%= transaction.seller.full_name %> <br>to @<%= link_to transaction.buyer.full_name, link_to_user(transaction.buyer) %>&nbsp; &nbsp; for <%= transaction.currency %> <%= transaction.currency_type %>
+    <% end %>
+  </p>
+</div>

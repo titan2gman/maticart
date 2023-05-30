@@ -1,0 +1,9 @@
+<% @activities.each do |activity| %>
+  <% if params[:filters] == "my_collections"%>
+    <%= render 'activities/own_contract', contract: activity %>
+  <%else%>
+    <% if activity.item.present? %>
+      <%= render activity.item_type.downcase, activity: activity if ["Follow", "Like", "Collection", "Bid"].include?(activity.item_type) %>
+    <% end %>
+  <%end%>
+<% end %>

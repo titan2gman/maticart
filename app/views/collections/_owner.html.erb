@@ -1,0 +1,17 @@
+<div class="token-collections">
+  <div class="token-collections-images">
+    <a href="<%= collection_path(collection.address)%>">
+      <%= image_tag url_for(collection.owner.profile_image(:icon)), class: 'img-responsive' %>
+      <i class="fa fa-check-circle"></i>
+    </a>
+  </div>
+  <div class="token-collections-details">
+    <a href="<%= collection_path(collection.address)%>">
+      <p class="para-color"><%= t('collections.show.owner_token', token: (collection.owned_tokens || 1 ))%></p>
+    </a>
+    <div class="same_line_data">
+      <a href="<%= link_to_user(collection.owner) %>" data-toggle="tooltip" data-placement="top" title="<%= collection.owner.address %>"><%= collection.owner.full_name_without_masked %></a>
+      <button class='copy_nft_address' value="<%= collection.owner.address %>" data-toggle='tooltip' data-placement='right' title='Copy'><i class='fa fa-copy'></i></button>
+    </div>
+  </div>
+</div>

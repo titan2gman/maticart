@@ -1,0 +1,99 @@
+<!-- 
+<div class="my-explore-div all games">
+<div class="my-explore-div all photography">
+<div class="my-explore-div all art">
+-->
+<% collection_attachment = collection.get_attachment(current_user)%>
+<div class="card">
+  <div class="t_c">
+    <a href="<%= collection_path(collection.address)%>" class="card__cover" target='_blank'>
+      <span class="collection-card-img" style="background-image: url('<%= cover_url(collection, :card) %>')">
+        <%= image_tag cover_url(collection, :card)%>
+      </span>
+    </a>
+    <% if current_user %>
+      <%#= react_component("collections/like", address: current_user.address, likes: current_user.likes.pluck(:collection_id), collectionId: collection.id,likes_count: collection.likes.count) %>
+      <%= react_component("collections/like", address: current_user.address, likes: current_user.likes.pluck(:collection_id), collectionId: collection.id,likes_count: 1) %>
+    <% else %>
+      <button class="card__likes heart">
+        <i class="far fa-star"></i>
+        <i class="fas fa-star"></i>
+        <!-- <span><%#= collection.likes.count%></span> -->
+      </button> 
+    <% end %>
+    <% if collection.transactions.count > 0 && trade_text %>
+      <div class="left_count"><%= collection.get_trade_count(params[:sort_ago]) %></div>
+    <% end %>
+  </div>
+  <div class="grid-box">
+    <h3 class="card__title" data-toggle="tooltip" data-placement="top" title="<%= collection.name %>">
+      <a target='_blank' href="<%= collection_path(collection.address)%>"><%= collection.name %></a><% if collection.total_editions.present? %><span><%= collection.total_editions(:card).html_safe %></span><% end %>
+    </h3>
+
+    <div class="card__author custom_card__author">
+      <div class="author__image_wraper">
+        <div class="user_img">
+          <%= image_tag collection.owner.profile_image(:icon) %>
+          <a target='_blank' href="<%= link_to_user(collection.owner) %>" data-toggle="tooltip" data-placement="top" title="@<%= collection.owner.full_name%>">@<%= collection.owner.full_name%></a>
+          <% if collection.owner.is_verified.present? %>
+            <div class="sdk_tool" data-toggle="tooltip" data-placement="top" data-tooltip="CC : Certified Creator 
+This Creator has sent Matic.art hers/his Identity Documents. 
+To Become a CC: nft@matic.art" class="verified_badge_col"><%= image_tag 'verified_badge.png', class: 'image_resolution' %></div>
+          <% end %>
+        </div>
+        <%if sold_text %>
+          <div class="sold_out">SOLD</div>
+        <% end %>
+      </div>
+      <div class="price__wrapper">
+        <% if collection.instant_sale_enabled #|| collection.max_bid %>
+          <% price, currency = collection.sale_price %>
+          <div class="price" title="MATIC / wMATIC"><%= image_tag 'polygon_logo.png', alt: 'currency', class: 'currency_icon' %> <%= number_to_currency(price, precision: 3, :unit => '') %><%#= currency %></div>
+          <div class="usd">$<%= number_to_currency(collection.sale_price_to_fiat(price, currency), precision: 2, :unit => '') %></div>
+        <% end %>
+      </div>
+    </div>
+    <div class="calltoaction__wrapper">
+      <div class="royalty_price">
+        <%if collection.royalty > 0 && !sold_text %>
+          RYLTY: <%=collection.royalty%>%
+        <%end%>
+      </div>
+      <% if collection.video_nft %>
+        <%= link_to collection_path(collection.address), class: 'center_icon', target: '_blank' do %>
+          <i data-toggle="tooltip" data-placement="top" title="Movie" class="fa fa-play-circle-o"></i>
+        <% end %>
+      <% end %>
+      <% if !sold_text %>
+        <div class="bid">
+          <% if collection.put_on_sale %>
+            <% if collection.instant_sale_enabled #|| collection.max_bid %>
+              <a target='_blank' href="<%= collection_path(collection.address)%>"><%= t('shared.buy_now') %></a>
+            <% else %>
+              <a class="contract_link" href="<%= collection_path(collection.address)%>">BID</a>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <% if already_sold %>
+      <div class="sold_count">ALREADY SOLD : <%= collection.sale_rate.round(2).to_s + "%" %>
+        <div><%= collection.no_of_copies - collection.owned_tokens %> over <%= collection.no_of_copies %></div>
+      </div>
+    <% end %>
+  </div>
+  <!-- <div class="card__info">
+    <div class="card__price">
+      <span><%#= t('shared.reserve_price')%></span>
+      <%# if collection.instant_sale_price%>
+       <span><%=collection.instant_sale_price%> MATIC</span>  
+      <%# else %>
+        <%# if collection.max_bid %>
+          <p class="bid_status">Highest bid <b><%#= collection.max_bid.value %></b></p>
+        <%#else%>
+          <span>No active Bids</span> 
+        <%# end %>
+      <%#end%>
+    </div>
+  </div> -->
+</div>

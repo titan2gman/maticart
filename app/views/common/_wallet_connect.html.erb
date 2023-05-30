@@ -1,0 +1,55 @@
+<div id="connect_to_wallet" class="zoom-anim-dialog mfp-hide modal sm_modal">
+  <button class="modal__close md_cls" type="button"><i class="fas fa-times"></i></button>
+  <h4><%= t('header.connect_wallet') %></h4>
+  <p><%= t('header.wallet_help') %> <a href="#what-wallet" class="open-modal"><%= t('header.wallet_info') %></a></p>
+
+  <div class="w_btn w_btn_metamask">
+    <a href="javascript:void(0);" onclick="window.connect('metamask')">
+      <span class="w_btn_icon"><img src="/assets/metamask.png"></span>
+      <%= t('header.metamask_wallet') %>
+    </a>
+    <p><i>for Desktop Computer Users</i></p>
+    <p class="iphone_text"><i>for iPhone users with the Metamask Browser.</i></p>
+  </div>
+  <br>
+  <div class="w_btn w_btn_trust">
+    <a href="javascript:void(0);" onclick="window.connect('trust')">
+      <span class="w_btn_icon"><img src="/assets/trust.svg"></span>
+      <%= t('header.trust_wallet') %>
+    </a>
+    <p><b>Use DApps&nbsp;&nbsp;<i class="fa fa-th-large" aria-hidden="true"></i>&nbsp;&nbsp;choice</b><br><i>for Phone and Mobile Users</i><br><i>Android - iPhone</i></p>
+  </div>
+  <br>
+  <div class="w_btn w_btn_walletconnect">
+    <a href="javascript:void(0);" onclick="window.connect('walletconnect')">
+      <span class="w_btn_icon"><img src="/assets/walletconnect.svg"></span>
+      <%= t('header.walletconnect_wallet') %>
+    </a>
+    <p><i>For Desktop&Mobile users.<br>Use the same wallet<br>like Trust Wallet on both<br>Mobile and Desktop</i></p>
+  </div>
+  <p class="mt-20"><%= t('header.wallet_confi') %></p>
+</div>
+
+
+<div id="what-wallet" class="zoom-anim-dialog mfp-hide modal sm_modal">
+  <!-- <button class="modal__close md_cls" type="button"><i class="fas fa-times"></i></button> -->
+  <a class="open-modal default-modal-element" href="#connect_to_wallet">
+    <i class="fas fa-times"></i>
+  </a>
+  <h4 class="modal-title">What is a wallet?</h4>
+  <p>Wallets are used to send, receive, and store digital assets like Ether. Wallets come in many forms. They are either built into your browser, an extension added to your browser, a piece of hardware plugged into your computer, or even an app on your phone.</p>
+</div>
+
+
+<script type="text/javascript">
+  $('#text-what-is-wallet').click(function(){
+    $("#connect_to_wallet .modal__close").click();
+  });
+  // $('#what-wallet .modal__close').click(function(){
+  //   $('#connect-wallet-modal').magnificPopup({
+  //       type: 'inline',
+  //       preloader: false,
+  //       modal: true
+  //   });
+  // });
+</script>

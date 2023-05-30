@@ -1,0 +1,74 @@
+<div class="home">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="home__content">
+          <div class="main_inline_content">
+            <div class="left_content">
+              <h2  class="home_sub_title">
+                <%=image_tag 'polygon_logo.png'%>
+                <span>The Polygon Matic</span>
+              </h2>
+              <h1 class="home__title">NFT<br><span><%=t('dashboard.free').upcase%></span> <%=t('dashboard.marketplace').upcase%></h1>
+              <div class="home_text_titles">
+                <p class="home__text">Mint your files on the mighty Polygon matic chain.</p>
+                <p class="home__text"><%= image_tag 'bam.png', class: 'bam_icon' %> you are protected against slavish copying.</p>
+              </div>
+            </div>
+            <div class="right_content">
+              <p class='home__text'><%= raw t('dashboard.selling_points_html', minting_fee_cap: Fee.MaxRefundMint.last&.refund_fee_cap.to_f.round(3), refund_transfer_cap: Fee.MaxRefundBuyAsset.last&.refund_fee_cap.to_f.round(3)) %></p>
+            </div>
+          </div>
+          <div class="home__btns">
+            <a href="<%= search_path%>" class="home__btn home__btn--clr" data-turbolinks="false"><%=t('dashboard.calltoaction_explore')%></a>
+            <a href="<%= new_collection_path %>" class="home__btn"><%=t('dashboard.calltoaction_create')%></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center d-none">
+        <div class="banner_sec">
+          <%#= image_tag "/assets/banner.png"%>
+          <div id="header-carousel" class="owl-carousel owl-theme">
+            <% @featured_collections.each do |collection| %>
+              <div class="item">
+                <%= link_to collection_path(id: collection.address) do %>
+                  <div class="banner-section">
+                    <%= image_tag cover_url(collection), class: 'img-responsive' %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+            <% if @featured_collections.empty? %>
+              <div class="item">
+                <div class="banner-section">
+                  <%= image_tag "new_banner1.png", class: 'img-responsive' %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('#header-carousel').owlCarousel({
+    loop: false,
+    margin: 10,
+    dots: false,
+    nav: true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 1
+      },
+      1000: {
+        items: 1
+      }
+    }
+  });
+</script>

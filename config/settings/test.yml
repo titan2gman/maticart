@@ -1,0 +1,6 @@
+chainId: 80001
+wmaticAddress: '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
+transferProxyContractAddress: '0xF49a0aD9E671156C674e15d89961a7005C0bBe35'
+tradeContractAddress: '0xf52bCaa05Ab40044Dd12785f667832f19CF34f73'
+freeMinterPublicKey: '0x8F37a1abA0B78Bdce4D1c829D1822a090d83bF9b'
+refundTransferPublicKey: '0x8F37a1abA0B78Bdce4D1c829D1822a090d83bF9b'

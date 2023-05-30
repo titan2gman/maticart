@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mt-20">
+      <a href="<%=Rails.application.credentials.matic_url%>/address/<%=@contract.address%>">
+      <div class="token-constructions-image token-constructions-image-background" style="background-image: url(<%= @contract.cover_url(:banner635) %>);">
+        <img class="img-responsive" src="<%= @contract.attachment_url(:circle)%>">
+      </div>
+      </a>
+    </div>
+    <div class="col-md-6 p-15 p-sm-40">
+      <a href="<%=Rails.application.credentials.matic_url%>/address/<%=@contract.address%>">
+        <h3 class="cluster_name_heading"><%=@contract.name%></h3>
+      </a>
+      <div><%=@contract.description%></div>
+    </div>
+  </div>
+</div>
+
+<section class="token-constructions">
+  <div class="container">
+    <div class="row row--grid pb-50" id="load_more_nft_collections">
+      <%if @tokens.present?%>
+        <%@tokens.each do |collection|%>
+          <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+            <%= render "dashboard/collection_card", collection: collection, sold_text: false, already_sold: false, trade_text: false %>
+          </div>
+        <%end%>
+      <%else%>
+        <% 4.times do %>
+          <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+            <%= render partial: 'common/empty_card_collection' %>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+    <% if @tokens.present? && @tokens.next_page.present? %>
+      <div class="row load_more_section">
+        <div class="col-12">
+          <div class="load_more text-center p-20">
+            <%=link_to 'Load more', nft_contract_path(id: params[:id], page: @tokens.next_page), remote: true, id: 'load_more_collections', class: 'home__btn home__btn--clr load_more_btn' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

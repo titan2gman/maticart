@@ -1,0 +1,22 @@
+<div class="main">
+  <div class="container">
+    <div class="all_notification_section">
+      <% if @notifications.present?%>
+        <div class="notification_heading">Notifications</div>
+      <%end%>
+      <div id="user_notification">
+        <%= render 'all_notifications' %>
+      </div>
+      <% if @notifications.present? && @notifications.next_page.present? %>
+        <div class="row load_more_section">
+          <div class="col-12">
+            <div class="load_more text-center p-20">
+              <%=link_to 'Load more', all_notifications_path(page_no: @notifications.next_page), remote: true, id: 'load_more_activity', class: 'home__btn home__btn--clr load_more_btn' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

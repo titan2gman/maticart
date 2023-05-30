@@ -1,0 +1,210 @@
+<%if false%>
+<section class="token-constructions">
+  <div class="container">
+    <div class="row margin-top-minus-20">
+
+        <div class="col-md-12">
+          <div class="col-xs-12 dis-padd-lr-0-res">
+
+            <div class="row pb-15 pt-30">
+              <div class="input-element-form-search" style="background-image: linear-gradient(to right, #00000047 , #000000cf), url(/assets/searchbg.jpg)">
+
+                  <div class="search-block">
+                    <h3><%= t('dashboard.search_collections')%></h3>
+                    <%=form_tag search_path, :method=>:get do%>
+                      <i class="fa fa-search"></i>
+                      <input type="text" name="query" class="searchInputPage" id="searchInput" placeholder="Search by creator, collectible or collection" value="<%=params[:query]%>">
+                      <div id='submitsearch' style="">
+                        <span><%= t('dashboard.search')%></span>
+                      </div>
+                    <%end%>
+                  </div>
+              </div>
+              
+            </div>
+
+            <div class="row pb-15 pt-30">
+              <div class="col-md-12 col-sm-12 col-xs-12 dis-heading-width">
+                <h3 class="mt-0"><%= t('dashboard.search_results', query: params[:query])%></h3>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="ul-width-passing">
+                <ul class="nav nav-tabs token-list-details">
+                  <li class="<%=params[:tab]!='users' ? 'active': ''%>">
+                    <%=link_to t('dashboard.items'), search_path(query: params[:query])%>
+                  </li>
+                  <li class="<%=params[:tab]=='users' ? 'active': ''%>">
+                    <%=link_to t('dashboard.users'), search_path(tab: "users", query: params[:query])%>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 pt-10 tabs-content-bg border-custom-style">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="tab-content pt-20">
+
+
+                    <div id="items" class="tab-pane fade in <%=params[:tab]!='users' ? 'active': ''%>">
+                        <div class="row" style="">
+                        <% @collections and @collections.each do |collection| %>
+                            <%= render "collection_card", collection: collection, sold_text: false, already_sold: false, trade_text: false %>
+                        <% end %>
+                        </div>
+                     </div>
+                    <div id="users" class="tab-pane fade in <%=params[:tab]=='users' ? 'active': ''%>">
+                      <div class="row">
+                        <% @users and @users.each do |user| %>
+                            <%= render "user_card", user: user %>
+                        <% end %>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+<%end%>
+<main class="main">
+<div class="container">
+      <div class="row row--grid">
+        <!-- title -->
+        <div class="col-12">
+          <div class="main__title main__title--page">
+            <h1><%= t('dashboard.explore_digital_assets')%></h1>
+          </div>
+        </div>
+        <!-- end title -->
+
+        <!-- filter -->
+        <div class="col-12">
+          <div class="main__filter">
+             <%= form_tag search_path, method: :get, class: 'main__filter-search' do %>
+              <input type="text" name="query" placeholder="Search..." value="<%= params[:query] %>">
+              <button type="submit"><i class="fas fa-search"></i></button>
+            <%end%>
+            <div class="sorting_box">
+              <%= link_to search_path(type: "price", query: params[:query], category: params[:category], sort_by: params[:sort_by].eql?('asc') ? 'desc' : 'asc'), class: "price_sorts #{params[:type].eql?('price') ? 'active' : ''}" do %>
+                <%= t('dashboard.sort_by_price')%>
+                &nbsp;
+                <%= image_tag 'sort.png', alt: '', class: "sort_icon" %>
+              <% end %>
+              <%= link_to search_path(type: "certified", query: params[:query], category: params[:category], sort_by: params[:sort_by].eql?('asc') ? 'desc' : 'asc'), class: "price_sorts #{params[:type].eql?('certified') ? 'active' : ''}" do %>
+              <div class="sdk_tool verified_badge" data-toggle="tooltip" data-placement="top" data-tooltip="CC : Certified Creator 
+This Creator has sent Matic.art hers/his Identity Documents. 
+To Become a CC: nft@matic.art" class="verified_badge_col"><%= image_tag 'verified_badge.png', class: 'image_resolution' %></div>
+              <%= t('dashboard.sort_by_certified') %>
+            <% end %>
+            </div>
+
+            <div class="main__filter-wrap">
+              <!--<select class="main__select" name="status">
+                <option value="now">BUY NOW</option>
+                <option value="new">New</option>
+                <option value="auction">On Auction</option>
+                <option value="offers">Has Offers</option>
+              </select>-->
+
+              <% if @collections.present? %>
+                <div class="header__action header__action--profile">
+                  <a class="" href="javascript:void(0);" role="button" id="dropdownMenuFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <%= params[:category] || t('dashboard.all_categories') %>
+                    <i class="fas fa-chevron-down"></i>
+                  </a>
+
+                  <ul class="dropdown-menu header__profile-menu" aria-labelledby="dropdownMenuProfile">
+                    <li><%= link_to t('dashboard.all_categories'), category_filter_path(query: params[:query]) , remote: true%></li>
+                    <li><%= link_to t("dashboard.recently_added"), category_filter_path(category: 'Recently Added', query: params[:query], type: params[:type], search: true, sort_by: params[:sort_by]) , remote: true %></li>
+                    <% Category.all.each do |category| %>
+                      <li>
+                        <%= link_to category.name, search_path(category: category.name, type: params[:type], sort_by: params[:sort_by], search: true), class: 'category_links' %>
+                        <script type="text/javascript">
+                          $('.xxcategory_links').click(function(){
+                            $(this).addClass('active');
+                            if ($('.price_sort').hasClass('active')) {
+                              var sort_by = $('.price_sort').attr('sort_by') == "asc" ? "desc" : "asc"
+                              var type = 'price'
+                            }
+                            else if ($('.type_sort').hasClass('active')) {
+                              var sort_by = $('.type_sort').attr('sort_by') == "asc" ? "desc" : "asc"
+                              var type = 'type'
+                            }
+                            url = "<%= category_filter_path %>"
+                            $('.xxprice_sort.active').attr('sort_by')
+                            $.ajax({
+                              url: url,
+                              type: "GET",
+                              dataType: "script",
+                              data: {category: "<%= category.name %>", type: "<%= params[:type]%>", sort_by: "<%= params[:sort_by]%>", search: true}
+                            })
+                          })
+                        </script>
+                      </li>
+                    <%end%>
+                  </ul>
+                </div>
+              <%end%>
+            </div>
+          </div>
+        </div>
+        <!-- end filter -->
+      </div>
+      <div class="filters-content">
+        <div class="row row--grid", id='load_more_collection'>
+          <% if @collections.present? %>
+            <% @collections.each do |collection| %>
+              <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <%= render "dashboard/collection_card", collection: collection, sold_text: false, already_sold: false, trade_text: false %>
+              </div>
+            <% end %>
+          <% else %>
+          <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+              <h3><%= t('dashboard.no_data_found')%></h3>
+              </div>
+          <% end %>
+        </div>
+      </div>
+      <!-- paginator -->
+      <% if @collections.present? && @collections.next_page.present? #(@collections.to_s != '' &&  params[:page_no].to_i <
+          #@ collections.total_pages)%>
+        <div class="row load_more_section">
+          <div class="col-md-12">
+            <div class="load-more-items">
+              <%=link_to t('dashboard.load_more'), category_filter_path(category: params[:category], type: params[:type], page_no: @collections.next_page, sort_by: params[:sort_by]), remote: true, id: 'load_more_link', class: 'home__btn home__btn--clr load_more_btn' %>
+              <!-- <a href="javascript:void(0)" data-page-no="2" category="" class="dashboard-load-more"><%#=t('unknown.load_more_items')%></a> -->
+            </div>
+          </div>
+        </div>
+      <% end %> 
+      <!-- end paginator -->
+    </div>
+</main>
+<script type="text/javascript">
+  $('.price_sort').click(function(){
+    sort_by = $(this).attr('sort_by');
+    url = "<%= collections_sort_path %>"
+    category = $('.category_links.active').text();
+    $.ajax({
+      url: url,
+      type: "GET",
+      dataType: "script",
+      data: {type: 'price', sort_by: sort_by, category: category}
+    })
+  });
+  $('.type_sort').click(function(){
+    sort_by = $(this).attr('sort_by');
+    url = "<%= collections_sort_path %>"
+    category = $('.category_links.active').text();
+    $.ajax({
+      url: url,
+      type: "GET",
+      dataType: "script",
+      data: {type: 'type', sort_by: sort_by, category: category}
+    })
+  });
+</script>

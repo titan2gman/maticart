@@ -1,0 +1,6 @@
+$("#load_more_nft_collections").append("<%=j render 'nft_collections' %>");
+<% if @tokens.next_page.present? %>
+  $("#load_more_collections").attr("href", "<%= nft_contract_path(id: params[:id], page: @tokens.next_page) %>");
+<% else %>
+  $(".load_more_section").remove();
+<% end %>

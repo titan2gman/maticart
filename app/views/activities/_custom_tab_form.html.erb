@@ -1,0 +1,19 @@
+<div id="customTabForm" class="zoom-anim-dialog mfp-hide modal sm_modal">
+  <button class="modal__close md_cls" type="button"><i class="fas fa-times"></i></button>
+  <h4 class="modal-title share_link_page_h4"><%= t("activities.filter_head") %></h4>
+  <%= form_tag create_custom_tab_path do %>
+    <div class="modal-body">
+      <div class="row mb-15">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="full_name"><%= t("activities.name_head") %></label>
+            <%= text_field_tag "tab_name", nil, class: 'form-control sign__input', placeholder: t("activities.name_head"), required: true %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer text-center">
+      <%=submit_tag 'Create', class: "btn buy-now bidding-element-btn theme-btn"%>
+    </div>
+  <% end %>
+</div>

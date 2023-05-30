@@ -1,0 +1,41 @@
+<%#= stylesheet_link_tag 'main'%>
+
+<main class="main">
+  <div class="container">
+    <div class="row row--grid">
+      <!-- title -->
+      <div class="col-12">
+        <div class="main__title main__title--page">
+          <h1>Collections</h1>
+        </div>
+      </div>
+      <!-- end title -->
+    </div>
+    <div class="filters-content">
+      <div class="row row--grid" id="load_more_contracts">
+        <%if @own_contract.present? %>
+          <%@own_contract.all.each do |single_contract|%>
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+              <%= render 'dashboard/own_contract', contract: single_contract %>
+            </div>
+          <%end%>
+        <%else%>
+          <% 4.times do%>
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+              <%= render partial: 'dashboard/empty_own_contract' %>
+            </div>
+          <%end%>
+        <%end%>
+      </div>
+      <% if @own_contract.present? && @own_contract.next_page.present? %>
+        <div class="row load_more_section">
+          <div class="col-12">
+            <div class="load_more text-center p-20">
+              <%=link_to 'Load more', owncollections_path(page: @own_contract.next_page), remote: true, id: 'load_more_contract', class: 'home__btn home__btn--clr load_more_btn' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>  
+  </div>
+</main>

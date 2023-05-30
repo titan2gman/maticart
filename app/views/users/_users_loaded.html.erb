@@ -1,0 +1,22 @@
+<% if !['liked', 'activity','following','followers'].include?(@tab) and @data.present? %>
+  <% if @tab == "my_collections" %>
+    <% @data.each do |single_contract| %>
+      <div class="col-12 col-md-6 col-lg-4">
+        <%= render 'dashboard/own_contract', contract: single_contract %>
+      </div>
+    <% end %>
+  <%else%>
+    <% @data.each do |collection| %>
+      <div class="col-12 col-md-6 col-lg-4">
+        <%= render "/dashboard/collection_card", collection: collection, sold_text: false, already_sold: false, trade_text: false %>
+      </div>
+    <% end %>
+  <%end%>
+  
+<% else %>
+  <% 3.times do %>
+    <div class="col-12 col-md-6 col-lg-4">
+      <%= render partial: 'common/empty_card_collection' %>
+    </div>
+  <% end %>
+<% end %>

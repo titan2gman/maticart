@@ -1,0 +1,5 @@
+<%@tokens.each do |collection|%>
+  <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+    <%= render "dashboard/collection_card", collection: collection, sold_text: false, already_sold: false %>
+  </div>
+<%end%>

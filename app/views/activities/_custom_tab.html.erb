@@ -1,0 +1,13 @@
+<% if current_user.present? && current_user.custom_tabs.present? %>
+  <% current_user.custom_tabs.each do |custom_tab|%>
+    <li>
+      <input id="<%= custom_tab.tab_name %>" type="checkbox" name="custom_tab[]"  <%= (is_filter_active(params[:filters], "custom_tab_#{custom_tab.id}") == 'active') ? "checked='true'" : '' %> onclick="window.location.href ='<%= activities_path(activity_type: "activity", filters: "custom_tab_#{custom_tab.id}", thumbnail_type: @thumbnail_type ) %>'">
+      <label for="<%= custom_tab.tab_name %>"><%= custom_tab.tab_name %> <%= ApplicationController.helpers.get_actual_count("activity", current_user, "custom_tab_#{custom_tab.id}") > 0 ? "(#{ApplicationController.helpers.get_actual_count("activity", current_user, "custom_tab_#{custom_tab.id}")})" : "" %></label>
+      <% if !custom_tab.activity_custom_tabs.present? && custom_tab.tab_name != 'Discarded'%>
+        <%= link_to remove_custom_tab_path(tab_id: custom_tab.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'trash_link' do %>
+          <i class="fa fa-trash"></i>
+        <% end %>
+      <%end%>
+    </li>
+  <% end %>
+<% end %>

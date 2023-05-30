@@ -1,0 +1,38 @@
+<main class="customize_admin_main">
+  <div class="container">
+    <div class="row row--grid">
+      <!-- title -->
+      <div class="col-12">
+        <!-- <div class="main__title main__title--page">
+          <h1>Nfts</h1>
+        </div> -->
+      </div>
+      <!-- end title -->
+    </div>
+    <div class="filters-content">
+      <div class="row row--grid" id="load_more_contracts">
+        <%@nft_contracts.each do |contract|%>
+          <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+            <div class="featured-creators-box cluster-box" style="margin-top: 20px">
+              <a href="<%= nft_contract_path(contract.address)%>" target='_blank'>
+                <div class="featured-creators-box-img">
+                  <div class="featured-creators-box-img-bg" style="background-image:url('<%=contract.cover_url(:banner)%>'")>
+                    <img src="<%=contract.cover_url(:banner)%>;" class="img-responsive">
+                  </div>
+                  <div class="featured-creators-box-img-profile">
+                    <img src="<%=contract.attachment_url(:circle)%>" class="img-responsive">
+                  </div>
+                </div>
+                <div class="featured-creators-box-content h-80">
+                  <h4><%=contract.name%></h4>
+                  <p><%=contract.description%></p>
+                  <%= link_to contract.is_active ? 'hide' : 'show', hide_contracts_admin_user_path(id: @user.id, contract_id: contract.id, is_active: contract.is_active ? 'hide' : 'show'), method: :post, class: "#{contract.is_active ? 'hide-nft' : 'show-nft'}" %>
+                </div>
+              </a>
+            </div>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</main>

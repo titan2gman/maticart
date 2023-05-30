@@ -1,0 +1,11 @@
+<% if params[:page_no].to_i > 1 %>
+  $('.load_more_data').append("<%= j render 'users_loaded' %>");
+<% else %>
+  $('.load_more_data').html("<%= j render 'users_loaded' %>");
+<% end %>
+<% if @data.next_page.present? %>
+  $(".load_more_btn").attr("href", "<%= user_path(id: @user.address, tab: @tab, page_no: @data.next_page) %>");
+<% else %>
+  $(".load_more_section").remove();
+<% end %>
+ReactRailsUJS.mountComponents();
