@@ -72,4 +72,3 @@ Detailed logs can be seen on the server with the command
 ubuntu$ journalctl -u sidekiq -f 
 ```
 
-
