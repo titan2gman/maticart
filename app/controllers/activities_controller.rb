@@ -8,6 +8,7 @@ class ActivitiesController < ApplicationController
     cookies.permanent["#{current_user.address.last(5)}_thumbnail_type"] = params[:thumbnail_type] || cookies["#{current_user.address.last(5)}_thumbnail_type"] || 'mini_thumbnail'
     #@thumbnail_type = cookies.permanent["#{current_user.address.last(5)}_thumbnail_type"]
     @thumbnail_type = params[:thumbnail_type].eql?('thumbnail') ? 'thumbnail' : 'mini_thumbnail'
+    
     load_activities
   end
 
