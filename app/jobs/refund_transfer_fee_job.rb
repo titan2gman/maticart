@@ -7,6 +7,7 @@ class RefundTransferFeeJob
     return unless transaction
     return if transaction.fee_refunded?
     return if transaction.txn_hash.nil?
+    
 
     begin
       cap = Fee.MaxRefundBuyAsset.last&.refund_fee_cap
