@@ -4,6 +4,7 @@ class RefundContractFeeJob
 
   def perform(collection_id)
     collection = Collection.unscoped.find_by(id: collection_id)
+    
     contract = collection.nft_contract
     return unless contract
     return if contract.refund_fee?
