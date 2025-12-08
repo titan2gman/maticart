@@ -1,4 +1,5 @@
 class CreateErc20Tokens < ActiveRecord::Migration[6.1]
+  
   def change
     create_table :erc20_tokens do |t|
       t.string :address
