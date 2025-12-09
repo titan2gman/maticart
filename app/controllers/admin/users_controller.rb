@@ -10,6 +10,7 @@ class Admin::UsersController < Admin::BaseController
       User.order(id: :desc).paginate(page: params[:page], per_page: 10)
     end
   end
+  
 
   def new
     @user = User.new
