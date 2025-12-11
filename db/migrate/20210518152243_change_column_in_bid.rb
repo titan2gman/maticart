@@ -5,5 +5,6 @@ class ChangeColumnInBid < ActiveRecord::Migration[6.1]
 
     add_column :bids, :amount, :decimal
     add_column :bids, :erc20_token_id, :integer
+    
   end
 end
