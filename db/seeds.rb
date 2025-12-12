@@ -16,7 +16,6 @@ Fee.find_or_create_by(fee_type: 'MaxRefundBuyAsset') do |fee|
   fee.update(per_mile: '0.02')
 end
 
-
 ["Art", "Animation", "Games", "Music", "Videos", "Memes", "Metaverses"].each { |c| Category.find_or_create_by(name: c) }
 
 #Creating ERC20 Token List
