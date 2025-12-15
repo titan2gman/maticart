@@ -5,6 +5,7 @@ class CreateCategories < ActiveRecord::Migration[6.1]
       t.boolean :is_active, default: true
 
       t.timestamps
+      
     end
   end
 end
