@@ -5,6 +5,7 @@ class CreateFees < ActiveRecord::Migration[6.1]
       t.string :fee_type
       t.string :price
       t.string :percentage
+      
 
       t.timestamps
     end
