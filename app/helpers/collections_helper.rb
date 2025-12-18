@@ -10,6 +10,7 @@ module CollectionsHelper
     variant.nil? ? '/assets/banner-1.png' : url_for(variant)
     # pinata_url(collection)
   end
+  
 
   def attachment_tag(collection)
     attachment = collection.attachment
