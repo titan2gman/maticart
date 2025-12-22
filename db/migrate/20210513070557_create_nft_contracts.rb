@@ -6,8 +6,7 @@ class CreateNftContracts < ActiveRecord::Migration[6.1]
       t.string :address
       t.references :owner, foreign_key: { to_table: :users }
 
-      t.timestamps
-      
+      t.timestamps      
     end
   end
 end
